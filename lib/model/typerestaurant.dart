@@ -4,7 +4,7 @@ class TypeRestaurant {
 
   TypeRestaurant({required this.id, required this.type});
 
-  Map<String, Object?> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'type': type
