@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Restaurant {
   int id;
   int idType;
