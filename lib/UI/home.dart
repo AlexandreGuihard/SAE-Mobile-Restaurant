@@ -13,7 +13,7 @@ class RestaurantsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restaurants'),
+        title: Text('Nos Restaurants'),
         centerTitle: true,
         backgroundColor: Colors.green,
         actions: <Widget>[
@@ -47,7 +47,7 @@ class RestaurantsPage extends StatelessWidget {
             ),
             title: Text(restaurants[index]),
             onTap: () {
-              Navigator.pushNamed(context, '/secondPage');
+              Navigator.pushNamed(context, '/detail');
             },
           );
         },

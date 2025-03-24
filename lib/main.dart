@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sae_mobile/UI/home.dart';
 import 'package:sae_mobile/UI/detail.dart';
+import 'package:sae_mobile/UI/connection.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -8,8 +9,9 @@ void main() {
       title: "Restaurants",
       routes: {
         '/': (context) => RestaurantsPage(),
-        '/secondPage': (context) => DetailPage(),
+        '/detail': (context) => DetailPage(),
+        '/connection': (context) => MyCustomForm(),
       },
-      initialRoute: '/'
+      initialRoute: '/connection'
       ));
   }
