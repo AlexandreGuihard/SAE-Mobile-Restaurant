@@ -22,7 +22,4 @@ void main() async {
   var db = await openDatabase(inMemoryDatabasePath);
   TablesBd.addTables(db);
 
-
-
-  print("✅ Base de données SQLite créée !");
 }
