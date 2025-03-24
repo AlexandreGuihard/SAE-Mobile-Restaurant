@@ -1,9 +1,7 @@
-
-
 import 'package:sae_mobile/model/restaurant.dart';
 
 class RestaurantProvider {
-  var db;
+  final db;
 
   RestaurantProvider({required this.db});
 
