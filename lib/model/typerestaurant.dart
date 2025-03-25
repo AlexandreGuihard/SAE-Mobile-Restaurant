@@ -6,8 +6,8 @@ class TypeRestaurant {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'type': type
+      'idType': id,
+      'typeRestaurant': type
     };
   }
 

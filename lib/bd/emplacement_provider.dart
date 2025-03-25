@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
+
 import '../model/emplacement.dart';
 
-class EmplacementProvider{
+class EmplacementProvider extends ChangeNotifier{
   final db;
 
-  const EmplacementProvider(this.db);
+  EmplacementProvider({required this.db});
 
   void insertEmplacement(Emplacement emplacement) async{
     await db.insert("EMPLACEMENT", emplacement.toMap());

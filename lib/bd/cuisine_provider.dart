@@ -1,11 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../model/cuisine.dart';
 
-class CuisineProvider{
+class CuisineProvider extends ChangeNotifier{
   final db;
 
-  const CuisineProvider(this.db);
+  CuisineProvider({required this.db});
 
   void insertCuisine(Cuisine cuisine) async{
     await db.insert("CUISINE", cuisine.toMap(), ConflictAlgorithm.replace);
