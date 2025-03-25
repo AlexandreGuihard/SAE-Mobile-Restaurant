@@ -32,4 +32,29 @@ class Restaurant {
     required this.nbEtoiles,
     required this.urlFacebook,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'idType': idType,
+      'nomRestaurant': nomRestaurant,
+      'horaires': horaires,
+      'siret': siret,
+      'numTel': numTel,
+      'urlWeb': urlWeb,
+      'commune': commune,
+      'vegetarien': vegetarien,
+      'vegan': vegan,
+      'entreeFauteuilRoulant': entreeFauteuilRoulant,
+      'accessInternet': accessInternet,
+      'marque': marque,
+      'nbEtoiles': nbEtoiles,
+      'urlFacebook': urlFacebook
+    };
+  }
+
+  @override
+  String toString() {
+    return "Restaurant{id: $id, idType: $idType, nomRestaurant: $nomRestaurant, horaires: $horaires, siret: $siret, numTel: $numTel, urlWeb: $urlWeb, commune: $commune, vegetarien: $vegetarien, vegan: $vegan, entreeFauteuilRoulant: $entreeFauteuilRoulant, accessInternet: $accessInternet,  marque: $marque,  nbEtoiles: $nbEtoiles,  urlFacebook: $urlFacebook}";
+  }
 }
