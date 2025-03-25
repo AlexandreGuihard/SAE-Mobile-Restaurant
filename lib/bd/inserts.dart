@@ -10,11 +10,11 @@ class Inserts{
   const Inserts(this.bd);
   
   void insertData(){
-    var cuisineProvider=CuisineProvider(bd);
+    var cuisineProvider=CuisineProvider(db:bd);
     cuisineProvider.insertCuisine(Cuisine(id: 1, type: "Gastronomique"));
     cuisineProvider.insertCuisine(Cuisine(id: 2, type: "Fast-Food"));
 
-    var emplacemementProvider=EmplacementProvider(bd);
+    var emplacemementProvider=EmplacementProvider(db:bd);
     emplacemementProvider.insertEmplacement(Emplacement(commune: "Paris", numDepartement: 75, departement: "Paris"));
     emplacemementProvider.insertEmplacement(Emplacement(commune: "Orléans", numDepartement: 45, departement: "Loiret"));
     emplacemementProvider.insertEmplacement(Emplacement(commune: "Bourges", numDepartement: 18, departement: "Cher"));
