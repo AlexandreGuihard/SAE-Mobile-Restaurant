@@ -9,7 +9,8 @@ class CuisineProvider extends ChangeNotifier{
   CuisineProvider({required this.db});
 
   void insertCuisine(Cuisine cuisine) async{
-    await db.insert("CUISINE", cuisine.toMap(), ConflictAlgorithm.replace);
+    print(db);
+    await db.insert("CUISINE", cuisine.toMap());
   }
 
   Future<Cuisine> getCuisineFromId(int idCuisine) async{
