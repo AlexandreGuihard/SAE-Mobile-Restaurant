@@ -5,7 +5,7 @@ class Cuisine {
   Cuisine({required this.id, required this.type});
 
   Map<String,dynamic> toMap(){
-    return {"id":id, "type":"type"};
+    return {"id":id, "type":type};
   }
 
   String toString(){

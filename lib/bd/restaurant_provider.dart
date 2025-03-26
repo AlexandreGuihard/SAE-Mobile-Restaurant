@@ -1,45 +1,33 @@
+import 'package:flutter/foundation.dart';
 import 'package:sae_mobile/model/restaurant.dart';
 
-class RestaurantProvider {
+class RestaurantProvider extends ChangeNotifier{
   final db;
 
   RestaurantProvider({required this.db});
 
   // Selects
-  Future<List<Restaurant>> restaurants() async {
+  Future<List<Restaurant>> getRestaurants() async {
     return await db.query('RESTAURANT');
   }
 
-  Future<Restaurant> restaurant(int id) async {
-    return await db.query(
-        'RESTAURANT',
-        where: 'idRestaurant = ?',
-        whereArgs: [id]
-    );
+  Future<Restaurant> getRestaurantFromId(int idRestaurant) async {
+    return await db.query('RESTAURANT', where: 'idRestaurant = $idRestaurant');
   }
 
   // Inserts
-  Future<Restaurant> insert(Restaurant r) async {
-    r.id = await db.insert("RESTAURANT", r.toMap());
-    return r;
+  void insertRestaurant(Restaurant restaurant) async {
+    await db.insert("RESTAURANT", restaurant.toMap());
   }
 
   // Update
-  Future<int> update(Restaurant r) async {
-    return await db.update(
-        "RESTAURANT",
-        r.toMap(),
-        where: 'idRestaurant = ?',
-        whereArgs: [r.id]
-    );
+  void updateRestaurant(Restaurant restaurant) async {
+    int idRestaurant=restaurant.id;
+    await db.update("RESTAURANT", restaurant.toMap(), where: 'idRestaurant = $idRestaurant');
   }
 
   // Delete
-  Future<int> delete(Restaurant r) async {
-    return await db.delete(
-      "RESTAURANT",
-      where: 'idRestaurant = ?',
-      whereArgs: [r.id]
-    );
+  void deleteRestaurant(int idRestaurant) async {
+    await db.delete("RESTAURANT", where: 'idRestaurant = $idRestaurant');
   }
 }
