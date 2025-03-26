@@ -4,8 +4,9 @@ import '../model/emplacement.dart';
 
 class EmplacementProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  EmplacementProvider({required this.db});
+  EmplacementProvider({required this.db, required this.supabase});
 
   void insertEmplacement(Emplacement emplacement) async{
     await db.insert("EMPLACEMENT", emplacement.toMap());

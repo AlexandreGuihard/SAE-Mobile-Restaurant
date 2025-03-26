@@ -15,6 +15,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sae_mobile/UI/home.dart';
 import 'package:sae_mobile/UI/detail.dart';
 import 'package:sae_mobile/UI/connection.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'bd/inserts.dart';
 
@@ -30,33 +31,38 @@ void main() async {
       sqfliteFfiInit();
     }
   }
-  var db = await openDatabase(inMemoryDatabasePath);
+  print("Connexion sqflite établie");
+  final db = await openDatabase(inMemoryDatabasePath);
   TablesBd.addTables(db);
   var inserts=Inserts(db);
   inserts.insertData();
 
+  // Connexion supabase
+  await Supabase.initialize(
+    url: 'https://bhgnkwowmmjrtnpwmeyn.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoZ25rd293bW1qcnRucHdtZXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzczODQ0NjksImV4cCI6MjA1Mjk2MDQ2OX0.QX6i2drDaaHv-vcJ4TlJn1RaTO_7CBuAVCDxaNMq02g',
+  );
+  print("Connexion Supabase établie");
   // App et providers pour la bd
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => CuisineProvider(db: db)),
-        ChangeNotifierProvider(create: (context) => EmplacementProvider(db: db)),
-        ChangeNotifierProvider(create: (context) => RestaurantProvider(db: db)),
-        ChangeNotifierProvider(create: (context) => TypeRestaurantProvider(db: db)),
-        ChangeNotifierProvider(create: (context) => UtilisateurProvider(db: db))
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Restaurants",
-        routes: {
-          '/': (context) => RestaurantsPage(),
-          '/detail': (context) => DetailPage(),
-          '/connection': (context) => MyCustomForm(),
-        },
-        initialRoute: '/connection'
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => CuisineProvider(db: db, supabase: supabase)),
+            ChangeNotifierProvider(create: (context) => EmplacementProvider(db: db, supabase: supabase)),
+            ChangeNotifierProvider(create: (context) => RestaurantProvider(db: db, supabase: supabase)),
+            ChangeNotifierProvider(create: (context) => TypeRestaurantProvider(db: db, supabase: supabase)),
+            ChangeNotifierProvider(create: (context) => UtilisateurProvider(db: db, supabase: supabase))
+          ],
+          child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: "Restaurants",
+              routes: {
+                '/': (context) => RestaurantsPage(),
+                '/detail': (context) => DetailPage(),
+                '/connection': (context) => MyCustomForm(),
+              },
+              initialRoute: '/connection'
+          )
       )
-    )
   );
 }
-
-class App extends StatelessWidget{}

@@ -5,8 +5,9 @@ import '../model/cuisine.dart';
 
 class CuisineProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  CuisineProvider({required this.db});
+  CuisineProvider({required this.db, required this.supabase});
 
   void insertCuisine(Cuisine cuisine) async{
     print(db);
