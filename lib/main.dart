@@ -12,6 +12,9 @@ import 'package:sae_mobile/bd/type_restaurant_provider.dart';
 import 'package:sae_mobile/bd/utilisateur_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
+import 'package:sae_mobile/UI/home.dart';
+import 'package:sae_mobile/UI/detail.dart';
+import 'package:sae_mobile/UI/connection.dart';
 
 import 'bd/inserts.dart';
 
@@ -42,7 +45,16 @@ void main() async {
         ChangeNotifierProvider(create: (context) => TypeRestaurantProvider(db: db)),
         ChangeNotifierProvider(create: (context) => UtilisateurProvider(db: db))
       ],
-      child: App()
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Restaurants",
+        routes: {
+          '/': (context) => RestaurantsPage(),
+          '/detail': (context) => DetailPage(),
+          '/connection': (context) => MyCustomForm(),
+        },
+        initialRoute: '/connection'
+      )
     )
   );
 }
