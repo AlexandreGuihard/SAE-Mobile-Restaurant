@@ -8,6 +8,10 @@ class Cuisine {
     return {"idCuisine":id, "typeCuisine":type};
   }
 
+  factory Cuisine.fromMap(Map<String, dynamic> map) {
+    return Cuisine(id: map['idCuisine'], type: map['typeCuisine']);
+  }
+
   String toString(){
     return "Cuisine: id=>$id, type=>$type";
   }

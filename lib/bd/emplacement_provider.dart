@@ -4,20 +4,25 @@ import '../model/emplacement.dart';
 
 class EmplacementProvider extends ChangeNotifier{
   final db;
-  final supabase;
 
-  EmplacementProvider({required this.db, required this.supabase});
+  EmplacementProvider({required this.db});
 
   void insertEmplacement(Emplacement emplacement) async{
     await db.insert("EMPLACEMENT", emplacement.toMap());
   }
 
   Future<Emplacement> getEmplacementFromCommune(String commune) async{
-    return await db.query("EMPLACEMENT", where:"commune=$commune");
+    final Map<String, dynamic> map = await db.query("EMPLACEMENT", where:"commune=$commune");
+
+    return Emplacement.fromMap(map);
   }
 
   Future<List<Emplacement>> getEmplacements() async{
-    return await db.query("EMPLACEMENT");
+    final List<Map<String, dynamic>> maps = await db.query("EMPLACEMENT");
+
+    return List.generate(maps.length, (i) {
+      return Emplacement.fromMap(maps[i]);
+    });
   }
 
   void deleteEmplacement(String commune) async{

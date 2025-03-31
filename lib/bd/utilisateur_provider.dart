@@ -4,9 +4,8 @@ import '../model/utilisateur.dart';
 
 class UtilisateurProvider extends ChangeNotifier{
   final db;
-  final supabase;
 
-  UtilisateurProvider({required this.db, required this.supabase});
+  UtilisateurProvider({required this.db});
 
   void insertUtilisateur(Utilisateur utilisateur) async{
     await db.insert("UTILISATEUR", utilisateur.toMap());
