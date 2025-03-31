@@ -12,7 +12,7 @@ class RestaurantsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: context.watch<RestaurantProvider>().getRestaurants(),
+        future: context.watch<RestaurantProvider>().getRestaurantsSupabase(),
         builder: (context, snapshot) {
           if ( snapshot.connectionState!=ConnectionState.done && !snapshot.hasData){
 
@@ -62,6 +62,7 @@ class RestaurantsPage extends StatelessWidget {
                       ),
                     ),
                     title: Text(snapshot.data![index].nomRestaurant),
+                    subtitle:Text('Note: ${snapshot.data![index].nbEtoiles} ⭐'),
                     onTap: () {
                       Navigator.pushNamed(context, '/detail');
                     },

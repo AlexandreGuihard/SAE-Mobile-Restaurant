@@ -12,7 +12,7 @@ class CuisineProvider extends ChangeNotifier{
   void insertCuisine(Cuisine cuisine) async{
     print(db);
     await db.insert("CUISINE", cuisine.toMap());
-    await supabase.from("cuisine").insert(cuisine.toMap());
+    // await supabase.from("cuisine").insert(cuisine.toMap());
   }
 
   Future<Cuisine> getCuisineFromId(int idCuisine) async{

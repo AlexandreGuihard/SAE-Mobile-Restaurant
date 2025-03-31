@@ -55,21 +55,21 @@ class Restaurant {
 
   factory Restaurant.fromMap(Map<String, dynamic> map) {
     return Restaurant(
-      id: map['idRestaurant'],
-      idType: map['idType'],
-      nomRestaurant: map['nomRestaurant'],
+      id: map['idrestaurant'],
+      idType: map['idtype'],
+      nomRestaurant: map['nomrestaurant'],
       horaires: map['horaires'],
       siret: map['siret'],
-      numTel: map['numTel'],
-      urlWeb: map['urlWeb'],
+      numTel: map['numtel'],
+      urlWeb: map['urlweb'],
       commune: map['commune'],
       vegetarien: map['vegetarien'],
       vegan: map['vegan'],
-      entreeFauteuilRoulant: map['entreeFauteuilRoulant'],
-      accessInternet: map['accessInternet'],
-      marque: map['marqueRestaurant'],
-      nbEtoiles: map['nbEtoiles'],
-      urlFacebook: map['urlFacebook'],
+      entreeFauteuilRoulant: map['entreefauteuilroulant'],
+      accessInternet: map['accesinternet'],
+      marque: map['marquerestaurant'],
+      nbEtoiles: map['nbetoiles'],
+      urlFacebook: map['urlfacebook'],
     );
   }
 
