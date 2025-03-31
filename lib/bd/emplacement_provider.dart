@@ -18,10 +18,22 @@ class EmplacementProvider extends ChangeNotifier{
     return Emplacement.fromMap(map);
   }
 
+  Future<Emplacement> getEmplacementFromCommuneSupabase(String commune) async{
+    final Map<String, dynamic> map=await supabase.from("emplacement").select().eq("commune", commune);
+    return Emplacement.fromMap(map);
+  }
+
   Future<List<Emplacement>> getEmplacements() async{
     final List<Map<String, dynamic>> maps = await db.query("EMPLACEMENT");
 
     return List.generate(maps.length, (i) {
+      return Emplacement.fromMap(maps[i]);
+    });
+  }
+
+  Future<List<Emplacement>> getEmplacementsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("emplacement").select();
+    return List.generate(maps.length, (i){
       return Emplacement.fromMap(maps[i]);
     });
   }
