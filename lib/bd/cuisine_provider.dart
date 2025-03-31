@@ -5,19 +5,32 @@ import '../model/cuisine.dart';
 
 class CuisineProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  CuisineProvider({required this.db});
+  CuisineProvider({required this.db, required this.supabase});
 
   void insertCuisine(Cuisine cuisine) async{
-    await db.insert("CUISINE", cuisine.toMap(), ConflictAlgorithm.replace);
+    print(db);
+    await db.insert("CUISINE", cuisine.toMap());
+    await supabase.from("cuisine").insert(cuisine.toMap());
   }
 
   Future<Cuisine> getCuisineFromId(int idCuisine) async{
-    return await db.query("CUISINE", where:"idCuisine=$idCuisine");
+    final Map<String, dynamic> map = await db.query("CUISINE", where:"idCuisine=$idCuisine");
+
+    return Cuisine.fromMap(map);
+  }
+
+  Future<Cuisine> getCuisineFromIdSupabase(int idCuisine) async{
+    return await supabase.from("cuisine").select().eq("idcuisine", idCuisine);
   }
 
   Future<List<Cuisine>> getCuisines() async{
-    return await db.query("CUISINE");
+    final List<Map<String, dynamic>> maps = await db.query("CUISINE");
+
+    return List.generate(maps.length, (i) {
+      return Cuisine.fromMap(maps[i]);
+    });
   }
 
   void deleteCuisine(int idCuisine) async{

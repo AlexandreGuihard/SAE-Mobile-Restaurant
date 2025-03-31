@@ -53,6 +53,26 @@ class Restaurant {
     };
   }
 
+  factory Restaurant.fromMap(Map<String, dynamic> map) {
+    return Restaurant(
+      id: map['idRestaurant'],
+      idType: map['idType'],
+      nomRestaurant: map['nomRestaurant'],
+      horaires: map['horaires'],
+      siret: map['siret'],
+      numTel: map['numTel'],
+      urlWeb: map['urlWeb'],
+      commune: map['commune'],
+      vegetarien: map['vegetarien'],
+      vegan: map['vegan'],
+      entreeFauteuilRoulant: map['entreeFauteuilRoulant'],
+      accessInternet: map['accessInternet'],
+      marque: map['marqueRestaurant'],
+      nbEtoiles: map['nbEtoiles'],
+      urlFacebook: map['urlFacebook'],
+    );
+  }
+
   @override
   String toString() {
     return "Restaurant{id: $id, idType: $idType, nomRestaurant: $nomRestaurant, horaires: $horaires, siret: $siret, numTel: $numTel, urlWeb: $urlWeb, commune: $commune, vegetarien: $vegetarien, vegan: $vegan, entreeFauteuilRoulant: $entreeFauteuilRoulant, accessInternet: $accessInternet,  marque: $marque,  nbEtoiles: $nbEtoiles,  urlFacebook: $urlFacebook}";

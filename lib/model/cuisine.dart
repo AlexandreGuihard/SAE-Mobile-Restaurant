@@ -5,7 +5,11 @@ class Cuisine {
   Cuisine({required this.id, required this.type});
 
   Map<String,dynamic> toMap(){
-    return {"id":id, "type":type};
+    return {"idcuisine":id, "typecuisine":type};
+  }
+
+  factory Cuisine.fromMap(Map<String, dynamic> map) {
+    return Cuisine(id: map['idCuisine'], type: map['typeCuisine']);
   }
 
   String toString(){

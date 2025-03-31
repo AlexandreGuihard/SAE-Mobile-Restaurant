@@ -3,16 +3,23 @@ import 'package:sae_mobile/model/typerestaurant.dart';
 
 class TypeRestaurantProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  TypeRestaurantProvider({required this.db});
+  TypeRestaurantProvider({required this.db, required this.supabase});
 
   // Selects
   Future<List<TypeRestaurant>> getTypesRestaurants() async {
-    return await db.query('TYPERESTAURANT');
+    final List<Map<String, dynamic>> maps = await db.query('TYPERESTAURANT');
+
+    return List.generate(maps.length, (i) {
+      return TypeRestaurant.fromMap(maps[i]);
+    });
   }
 
   Future<TypeRestaurant> getTypeRestaurantsFromId(int idType) async {
-    return await db.query('TYPERESTAURANT', where: 'idType = $idType');
+    final Map<String, dynamic> map = await db.query('TYPERESTAURANT', where: 'idType = $idType');
+
+    return TypeRestaurant.fromMap(map);
   }
 
   // Inserts
