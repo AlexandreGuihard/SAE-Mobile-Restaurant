@@ -18,6 +18,7 @@ class DetailPage extends StatelessWidget {
             ),
           ]
       ),
+      backgroundColor: Colors.white60,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

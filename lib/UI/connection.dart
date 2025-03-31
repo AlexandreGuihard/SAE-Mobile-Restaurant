@@ -14,6 +14,14 @@ class MyCustomFormState extends State<MyCustomForm> {
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
 
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +31,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         backgroundColor: Colors.green,
           automaticallyImplyLeading: false,
       ),
+      backgroundColor: Colors.white60,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -31,6 +40,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                controller: myController,
                 decoration: InputDecoration(
                   labelText: 'Pseudo',
                   prefixIcon: Icon(Icons.person),
