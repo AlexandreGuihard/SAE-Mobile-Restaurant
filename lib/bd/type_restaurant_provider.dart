@@ -3,8 +3,9 @@ import 'package:sae_mobile/model/typerestaurant.dart';
 
 class TypeRestaurantProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  TypeRestaurantProvider({required this.db});
+  TypeRestaurantProvider({required this.db, required this.supabase});
 
   // Selects
   Future<List<TypeRestaurant>> getTypesRestaurants() async {
