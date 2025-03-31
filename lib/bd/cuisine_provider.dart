@@ -12,12 +12,17 @@ class CuisineProvider extends ChangeNotifier{
   void insertCuisine(Cuisine cuisine) async{
     print(db);
     await db.insert("CUISINE", cuisine.toMap());
+    await supabase.from("cuisine").insert(cuisine.toMap());
   }
 
   Future<Cuisine> getCuisineFromId(int idCuisine) async{
     final Map<String, dynamic> map = await db.query("CUISINE", where:"idCuisine=$idCuisine");
 
     return Cuisine.fromMap(map);
+  }
+
+  Future<Cuisine> getCuisineFromIdSupabase(int idCuisine) async{
+    return await supabase.from("cuisine").select().eq("idcuisine", idCuisine);
   }
 
   Future<List<Cuisine>> getCuisines() async{

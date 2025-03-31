@@ -42,7 +42,7 @@ void main() async {
     url: 'https://bhgnkwowmmjrtnpwmeyn.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoZ25rd293bW1qcnRucHdtZXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzczODQ0NjksImV4cCI6MjA1Mjk2MDQ2OX0.QX6i2drDaaHv-vcJ4TlJn1RaTO_7CBuAVCDxaNMq02g',
   );
-  final supabase = Supabase.instance.client;
+  final supabase=Supabase.instance.client;
   print("Connexion Supabase établie");
   // App et providers pour la bd
   runApp(
