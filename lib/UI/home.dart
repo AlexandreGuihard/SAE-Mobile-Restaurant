@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sae_mobile/bd/restaurant_provider.dart';
 import 'package:sae_mobile/model/restaurant.dart';
 
+import 'detail.dart';
+
 class RestaurantsPage extends StatelessWidget {
   late Future<List<Restaurant>> restaurants;
 
@@ -63,7 +65,7 @@ class RestaurantsPage extends StatelessWidget {
                     ),
                     title: Text(snapshot.data![index].nomRestaurant),
                     onTap: () {
-                      Navigator.pushNamed(context, '/detail');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(restaurant: snapshot.data![index])));
                     },
                   );
                 },

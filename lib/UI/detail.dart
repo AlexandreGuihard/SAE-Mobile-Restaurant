@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sae_mobile/model/restaurant.dart';
 
 class DetailPage extends StatelessWidget {
+  final Restaurant restaurant;
+
+  const DetailPage({super.key, required this.restaurant});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +30,7 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Le Petit Vegan',
+              restaurant.nomRestaurant,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -33,7 +38,7 @@ class DetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Horaires :\nLundi - Vendredi: 12h00 - 22h00\nSamedi - Dimanche: 10h00 - 23h00',
+              'Horaires :${restaurant.horaires}',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 10),
@@ -48,18 +53,105 @@ class DetailPage extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: <Widget>[
-                Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
+                Builder(
+                  builder: (context) {
+                    if (restaurant.vegan) {
+                      return Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Propose des plats végan',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ]
+                      );
+                    } else {
+                      return Row();
+                    }
+                  },
                 ),
-                SizedBox(width: 8),
-                Text(
-                  'Restaurant 100% Végan',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
-                  ),
+                Builder(
+                  builder: (context) {
+                    if (restaurant.vegetarien) {
+                      return Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Propose des plats végétarien',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ]
+                      );
+                    } else {
+                      return Row();
+                    }
+                  },
+                ),
+                Builder(
+                  builder: (context) {
+                    if (restaurant.accessInternet) {
+                      return Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Accès à internet disponible',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ]
+                      );
+                    } else {
+                      return Row();
+                    }
+                  },
+                ),
+                Builder(
+                  builder: (context) {
+                    if (restaurant.entreeFauteuilRoulant) {
+                      return Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Entrée pour les fauteuils roulants disponible',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ]
+                      );
+                    } else {
+                      return Row();
+                    }
+                  },
                 ),
               ],
             ),
