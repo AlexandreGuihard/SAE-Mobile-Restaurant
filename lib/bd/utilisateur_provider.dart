@@ -21,14 +21,9 @@ class UtilisateurProvider extends ChangeNotifier{
     return Utilisateur.fromMap(map);
   }
 
-  Future<Utilisateur> getUtilisateurFromIdSupabase(int idUtilisateur) async{
-    final Map<String, dynamic> map=await supabase.from("utilisateur").select().eq("idutilisateur", idUtilisateur);
-    return Utilisateur.fromMap(map);
-  }
-
   Future<Utilisateur?> getUtilisateurFromPseudoPassword(String pseudo, String password) async{
     final List<Map<String, dynamic>> map=await supabase.from("utilisateur").select().eq("pseudo", pseudo).eq("motdepasse", password);
-    print(map);
+
     if (map.isNotEmpty) {
       return Utilisateur.fromMap(map.first);
     } else {
@@ -38,13 +33,6 @@ class UtilisateurProvider extends ChangeNotifier{
 
   Future<List<Utilisateur>> getUtilisateurs() async{
     return await db.query("utilisateur");
-  }
-
-  Future<List<Utilisateur>> getUtilisateursSupabase() async{
-    final List<Map<String, dynamic>> maps=await supabase.from("utilisateur").select();
-    return List.generate(maps.length, (i){
-      return Utilisateur.fromMap(maps[i]);
-    });
   }
 
   Future<List<Utilisateur>> getUtilisateursSupabase() async{

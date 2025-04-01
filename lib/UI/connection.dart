@@ -100,8 +100,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   onPressed: () async{
                     if (_formKey.currentState!.validate()) {
                       final utilisateurProvider = Provider.of<UtilisateurProvider>(context, listen: false);
-                      Future<Utilisateur?> user = (await utilisateurProvider.getUtilisateurFromPseudoPassword(pseudoController.text, passwordController.text)) as Future<Utilisateur?>;
-                      print(user.toString());
+                      Utilisateur? user = await utilisateurProvider.getUtilisateurFromPseudoPassword(pseudoController.text, passwordController.text);
                       if (user != null) {
                         Navigator.pushNamed(context, '/');;
                       }
