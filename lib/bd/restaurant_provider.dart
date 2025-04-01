@@ -37,4 +37,11 @@ class RestaurantProvider extends ChangeNotifier{
   void deleteRestaurant(int idRestaurant) async {
     await db.delete("restaurant", where: 'idrestaurant = $idRestaurant');
   }
+
+  Future<List<Restaurant>> getRestaurantsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("restaurant").select();
+    return List.generate(maps.length, (i){
+      return Restaurant.fromMap(maps[i]);
+    });
+  }
 }

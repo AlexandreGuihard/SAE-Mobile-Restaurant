@@ -66,7 +66,7 @@ class Restaurant {
       vegetarien: map['vegetarien'],
       vegan: map['vegan'],
       entreeFauteuilRoulant: map['entreefauteuilroulant'],
-      accessInternet: map['accessinternet'],
+      accessInternet: map['accesinternet'],
       marque: map['marquerestaurant'],
       nbEtoiles: map['nbetoiles'],
       urlFacebook: map['urlfacebook'],
