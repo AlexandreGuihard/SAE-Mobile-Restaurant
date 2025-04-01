@@ -9,13 +9,13 @@ class Emplacement {
     required this.departement});
 
   Map<String,dynamic> toMap(){
-    return {"commune":commune, "numDepartement":numDepartement, "departement":departement};
+    return {"commune":commune, "numdepartement":numDepartement, "departement":departement};
   }
 
   factory Emplacement.fromMap(Map<String, dynamic> map) {
     return Emplacement(
       commune: map['commune'],
-      numDepartement: map['numDepartement'],
+      numDepartement: map['numdepartement'],
       departement: map['departement']
     );
   }

@@ -9,7 +9,7 @@ class RestaurantProvider extends ChangeNotifier{
 
   // Selects
   Future<List<Restaurant>> getRestaurants() async {
-    final List<Map<String, dynamic>> maps = await db.query('RESTAURANT');
+    final List<Map<String, dynamic>> maps = await db.query('restaurant');
 
     return List.generate(maps.length, (i) {
       return Restaurant.fromMap(maps[i]);
@@ -17,24 +17,31 @@ class RestaurantProvider extends ChangeNotifier{
   }
 
   Future<Restaurant> getRestaurantFromId(int idRestaurant) async {
-    final Map<String, dynamic> map = await db.query('RESTAURANT', where: 'idRestaurant = $idRestaurant');
+    final Map<String, dynamic> map = await db.query('restaurant', where: 'idrestaurant = $idRestaurant');
 
     return Restaurant.fromMap(map);
   }
 
   // Inserts
   void insertRestaurant(Restaurant restaurant) async {
-    await db.insert("RESTAURANT", restaurant.toMap());
+    await db.insert("restaurant", restaurant.toMap());
   }
 
   // Update
   void updateRestaurant(Restaurant restaurant) async {
     int idRestaurant=restaurant.id;
-    await db.update("RESTAURANT", restaurant.toMap(), where: 'idRestaurant = $idRestaurant');
+    await db.update("restaurant", restaurant.toMap(), where: 'idrestaurant = $idRestaurant');
   }
 
   // Delete
   void deleteRestaurant(int idRestaurant) async {
-    await db.delete("RESTAURANT", where: 'idRestaurant = $idRestaurant');
+    await db.delete("restaurant", where: 'idrestaurant = $idRestaurant');
+  }
+
+  Future<List<Restaurant>> getRestaurantsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("restaurant").select();
+    return List.generate(maps.length, (i){
+      return Restaurant.fromMap(maps[i]);
+    });
   }
 }

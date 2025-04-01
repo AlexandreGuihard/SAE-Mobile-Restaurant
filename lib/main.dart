@@ -16,6 +16,7 @@ import 'package:sae_mobile/UI/home.dart';
 import 'package:sae_mobile/UI/connection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'bd/avis_provider.dart';
 import 'bd/inserts.dart';
 
 void main() async {
@@ -51,7 +52,17 @@ void main() async {
             ChangeNotifierProvider(create: (context) => EmplacementProvider(db: db, supabase: supabase)),
             ChangeNotifierProvider(create: (context) => RestaurantProvider(db: db, supabase: supabase)),
             ChangeNotifierProvider(create: (context) => TypeRestaurantProvider(db: db, supabase: supabase)),
-            ChangeNotifierProvider(create: (context) => UtilisateurProvider(db: db, supabase: supabase))
+            ChangeNotifierProvider(create: (context) => UtilisateurProvider(db: db, supabase: supabase)),
+            ChangeNotifierProxyProvider2<UtilisateurProvider, RestaurantProvider, AvisProvider>(
+              create: (context) => AvisProvider(
+                db: db,
+                supabase: supabase,
+                utilisateurProvider: context.read<UtilisateurProvider>(),
+                restaurantProvider: context.read<RestaurantProvider>(),
+              ),
+              update: (context, utilisateurProvider, restaurantProvider, previous) =>
+                  AvisProvider(db: db, supabase: supabase, utilisateurProvider: utilisateurProvider, restaurantProvider: restaurantProvider),
+            ),
           ],
           child: MaterialApp(
               debugShowCheckedModeBanner: false,
