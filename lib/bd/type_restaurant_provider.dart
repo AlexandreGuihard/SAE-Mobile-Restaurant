@@ -9,7 +9,7 @@ class TypeRestaurantProvider extends ChangeNotifier{
 
   // Selects
   Future<List<TypeRestaurant>> getTypesRestaurants() async {
-    final List<Map<String, dynamic>> maps = await db.query('TYPERESTAURANT');
+    final List<Map<String, dynamic>> maps = await db.query('typerestaurant');
 
     return List.generate(maps.length, (i) {
       return TypeRestaurant.fromMap(maps[i]);
@@ -17,24 +17,24 @@ class TypeRestaurantProvider extends ChangeNotifier{
   }
 
   Future<TypeRestaurant> getTypeRestaurantsFromId(int idType) async {
-    final Map<String, dynamic> map = await db.query('TYPERESTAURANT', where: 'idType = $idType');
+    final Map<String, dynamic> map = await db.query('typerestaurant', where: 'idtype = $idType');
 
     return TypeRestaurant.fromMap(map);
   }
 
   // Inserts
   void insertTypeRestaurants(TypeRestaurant type) async {
-    await db.insert("TYPERESTAURANT", type.toMap());
+    await db.insert("typerestaurant", type.toMap());
   }
 
   // Update
   void updateTypeRestaurants(TypeRestaurant type) async {
     int idType=type.id;
-    await db.update("TYPERESTAURANT", type.toMap(), where: 'idType = $idType');
+    await db.update("typerestaurant", type.toMap(), where: 'idtype = $idType');
   }
 
   // Delete
   void deleteTypeRestaurants(int idType) async {
-    await db.delete("TYPERESTAURANT", where: 'idType =$idType');
+    await db.delete("typerestaurant", where: 'idtype =$idType');
   }
 }

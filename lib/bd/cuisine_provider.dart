@@ -14,7 +14,7 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   Future<Cuisine> getCuisineFromId(int idCuisine) async{
-    final Map<String, dynamic> map = await db.query("CUISINE", where:"idCuisine=$idCuisine");
+    final Map<String, dynamic> map = await db.query("cuisine", where:"idCuisine=$idCuisine");
     return Cuisine.fromMap(map);
   }
 
@@ -23,7 +23,7 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   Future<List<Cuisine>> getCuisines() async{
-    final List<Map<String, dynamic>> maps = await db.query("CUISINE");
+    final List<Map<String, dynamic>> maps = await db.query("cuisine");
 
     return List.generate(maps.length, (i) {
       return Cuisine.fromMap(maps[i]);
@@ -38,11 +38,11 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   void deleteCuisine(int idCuisine) async{
-    await db.delete("CUISINE", where:"idCuisine=$idCuisine");
+    await db.delete("cuisine", where:"idcuisine=$idCuisine");
   }
 
   void updateCuisine(Cuisine cuisine) async{
     int idCuisine=cuisine.id;
-    await db.update("CUISINE", cuisine.toMap(), where:"idCuisine=$idCuisine");
+    await db.update("cuisine", cuisine.toMap(), where:"idcuisine=$idCuisine");
   }
 }
