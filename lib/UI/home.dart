@@ -115,17 +115,13 @@ class RestaurantsPage extends StatelessWidget {
                         );
                       },
                     ),
-                    title: Text(snapshot.data![index].nomRestaurant),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(restaurant: snapshot.data![index])));
-                    },
-                  );
-                },
-              ),
-            );
-          }
-          return Container();
-      }
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
