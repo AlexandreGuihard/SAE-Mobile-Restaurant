@@ -35,21 +35,21 @@ class Restaurant {
 
   Map<String, dynamic> toMap() {
     return {
-      'idRestaurant': id,
-      'idType': idType,
-      'nomRestaurant': nomRestaurant,
+      'idrestaurant': id,
+      'idtype': idType,
+      'nomrestaurant': nomRestaurant,
       'horaires': horaires,
       'siret': siret,
-      'numTel': numTel,
-      'urlWeb': urlWeb,
+      'numtel': numTel,
+      'urlweb': urlWeb,
       'commune': commune,
       'vegetarien': vegetarien,
       'vegan': vegan,
-      'entreeFauteuilRoulant': entreeFauteuilRoulant,
-      'accessInternet': accessInternet,
-      'marque': marque,
-      'nbEtoiles': nbEtoiles,
-      'urlFacebook': urlFacebook
+      'entreefauteuilroulant': entreeFauteuilRoulant,
+      'accessinternet': accessInternet,
+      'marquerestaurant': marque,
+      'nbetoiles': nbEtoiles,
+      'urlfacebook': urlFacebook
     };
   }
 

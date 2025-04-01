@@ -9,7 +9,7 @@ class Cuisine {
   }
 
   factory Cuisine.fromMap(Map<String, dynamic> map) {
-    return Cuisine(id: map['idCuisine'], type: map['typeCuisine']);
+    return Cuisine(id: map['idcuisine'], type: map['typecuisine']);
   }
 
   String toString(){
