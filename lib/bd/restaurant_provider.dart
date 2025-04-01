@@ -40,9 +40,6 @@ class RestaurantProvider extends ChangeNotifier{
 
   Future<List<Restaurant>> getRestaurantsSupabase() async{
     final List<Map<String, dynamic>> maps=await supabase.from("restaurant").select();
-    for (var map in maps) {
-      print("Données récupérées : $map");
-    }
     return List.generate(maps.length, (i){
       return Restaurant.fromMap(maps[i]);
     });
