@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sae_mobile/bd/utilisateur_provider.dart';
+import '../model/utilisateur.dart';
 
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
@@ -11,14 +14,14 @@ class MyCustomForm extends StatefulWidget {
 
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
 
-  final myController = TextEditingController();
+  final pseudoController = TextEditingController();
 
   @override
   void dispose() {
-    myController.dispose();
+    pseudoController.dispose();
     super.dispose();
   }
 
@@ -40,7 +43,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                controller: myController,
+                controller: pseudoController,
                 decoration: InputDecoration(
                   labelText: 'Pseudo',
                   prefixIcon: Icon(Icons.person),
@@ -57,7 +60,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
               SizedBox(height: 16),
               TextFormField(
-                controller: _passwordController,
+                controller: passwordController,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Mot de passe',
@@ -89,14 +92,19 @@ class MyCustomFormState extends State<MyCustomForm> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(15),
-                    backgroundColor: Colors.green, // Couleur du bouton
+                    backgroundColor: Colors.green,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async{
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamed(context, '/');
+                      final utilisateurProvider = Provider.of<UtilisateurProvider>(context, listen: false);
+                      Future<Utilisateur?> user = (await utilisateurProvider.getUtilisateurFromPseudoPassword(pseudoController.text, passwordController.text)) as Future<Utilisateur?>;
+                      print(user.toString());
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/');;
+                      }
                     }
                   },
                   child: const Text(
