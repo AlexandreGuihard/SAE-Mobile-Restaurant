@@ -13,7 +13,6 @@ import 'package:sae_mobile/bd/utilisateur_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sae_mobile/UI/home.dart';
-import 'package:sae_mobile/UI/detail.dart';
 import 'package:sae_mobile/UI/connection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -70,7 +69,6 @@ void main() async {
               title: "Restaurants",
               routes: {
                 '/': (context) => RestaurantsPage(),
-                '/detail': (context) => DetailPage(),
                 '/connection': (context) => MyCustomForm(),
               },
               initialRoute: '/connection'
