@@ -35,41 +35,41 @@ class Restaurant {
 
   Map<String, dynamic> toMap() {
     return {
-      'idRestaurant': id,
-      'idType': idType,
-      'nomRestaurant': nomRestaurant,
+      'idrestaurant': id,
+      'idtype': idType,
+      'nomrestaurant': nomRestaurant,
       'horaires': horaires,
       'siret': siret,
-      'numTel': numTel,
-      'urlWeb': urlWeb,
+      'numtel': numTel,
+      'urlweb': urlWeb,
       'commune': commune,
       'vegetarien': vegetarien,
       'vegan': vegan,
-      'entreeFauteuilRoulant': entreeFauteuilRoulant,
-      'accessInternet': accessInternet,
-      'marque': marque,
-      'nbEtoiles': nbEtoiles,
-      'urlFacebook': urlFacebook
+      'entreefauteuilroulant': entreeFauteuilRoulant,
+      'accessinternet': accessInternet,
+      'marquerestaurant': marque,
+      'nbetoiles': nbEtoiles,
+      'urlfacebook': urlFacebook
     };
   }
 
   factory Restaurant.fromMap(Map<String, dynamic> map) {
     return Restaurant(
-      id: map['idRestaurant'],
-      idType: map['idType'],
-      nomRestaurant: map['nomRestaurant'],
+      id: map['idrestaurant'],
+      idType: map['idtype'],
+      nomRestaurant: map['nomrestaurant'],
       horaires: map['horaires'],
       siret: map['siret'],
-      numTel: map['numTel'],
-      urlWeb: map['urlWeb'],
+      numTel: map['numtel'],
+      urlWeb: map['urlweb'],
       commune: map['commune'],
       vegetarien: map['vegetarien'],
       vegan: map['vegan'],
-      entreeFauteuilRoulant: map['entreeFauteuilRoulant'],
-      accessInternet: map['accessInternet'],
-      marque: map['marqueRestaurant'],
-      nbEtoiles: map['nbEtoiles'],
-      urlFacebook: map['urlFacebook'],
+      entreeFauteuilRoulant: map['entreefauteuilroulant'],
+      accessInternet: map['accessinternet'],
+      marque: map['marquerestaurant'],
+      nbEtoiles: map['nbetoiles'],
+      urlFacebook: map['urlfacebook'],
     );
   }
 

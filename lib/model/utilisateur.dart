@@ -6,7 +6,7 @@ class Utilisateur{
   const Utilisateur(this.idUtilisateur, this.pseudo, this.moderateur);
 
   Map<String,dynamic> toMap(){
-    return {"idUtilisateur":idUtilisateur, "pseudo":pseudo, "moderateur":moderateur};
+    return {"idutilisateur":idUtilisateur, "pseudo":pseudo, "moderateur":moderateur};
   }
 
   factory Utilisateur.fromMap(Map<String, dynamic> map) {

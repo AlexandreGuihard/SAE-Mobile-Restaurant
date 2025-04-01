@@ -6,13 +6,13 @@ class TypeRestaurant {
 
   Map<String, dynamic> toMap() {
     return {
-      'idType': id,
-      'typeRestaurant': type
+      'idtype': id,
+      'typerestaurant': type
     };
   }
 
   factory TypeRestaurant.fromMap(Map<String, dynamic> map) {
-    return TypeRestaurant(id: map['idType'], type: map['typeRestaurant']);
+    return TypeRestaurant(id: map['idtype'], type: map['typerestaurant']);
   }
 
   @override
