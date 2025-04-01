@@ -44,4 +44,14 @@ class RestaurantProvider extends ChangeNotifier{
       return Restaurant.fromMap(maps[i]);
     });
   }
+
+  Future<Restaurant?> getRestaurantFromIdSupabase(int idRestaurant) async{
+    final List<Map<String, dynamic>> map=await supabase.from("restaurant").select().eq("restaurant", idRestaurant);
+
+    if (map.isNotEmpty) {
+      return Restaurant.fromMap(map.first);
+    } else {
+      return null;
+    }
+  }
 }

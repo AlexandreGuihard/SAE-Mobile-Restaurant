@@ -110,7 +110,7 @@ class RestaurantsPage extends StatelessWidget {
                           subtitle: Text(
                               'Note: ${filteredRestaurants[index].nbEtoiles} ⭐'),
                           onTap: () {
-                            Navigator.pushNamed(context, '/detail');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(restaurant : filteredRestaurants[index])));
                           },
                         );
                       },

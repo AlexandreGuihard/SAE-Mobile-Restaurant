@@ -4,13 +4,13 @@ import 'package:sae_mobile/model/restaurant.dart';
 class DetailPage extends StatelessWidget {
   final Restaurant restaurant;
 
-  const DetailPage({super.key, required this.restaurant});
+  const DetailPage({required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Détail du Restaurant'),
+          title: Text('Détails du Restaurant'),
           centerTitle: true,
           backgroundColor: Colors.green,
           actions: <Widget>[
@@ -51,7 +51,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Row(
+            Column(
               children: <Widget>[
                 Builder(
                   builder: (context) {
