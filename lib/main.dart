@@ -18,6 +18,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'bd/avis_provider.dart';
 import 'bd/inserts.dart';
+import 'model/cuisine.dart';
+
+late SupabaseClient supabase;
+late Database db;
 
 void main() async {
   // Connexion BD
@@ -32,7 +36,7 @@ void main() async {
     }
   }
   print("Connexion sqflite établie");
-  final db = await openDatabase(inMemoryDatabasePath);
+  db = await openDatabase(inMemoryDatabasePath);
   TablesBd.addTables(db);
   var inserts=Inserts(db);
   inserts.insertData();
@@ -42,7 +46,8 @@ void main() async {
     url: 'https://bhgnkwowmmjrtnpwmeyn.supabase.co',
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJoZ25rd293bW1qcnRucHdtZXluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzczODQ0NjksImV4cCI6MjA1Mjk2MDQ2OX0.QX6i2drDaaHv-vcJ4TlJn1RaTO_7CBuAVCDxaNMq02g',
   );
-  final supabase=Supabase.instance.client;
+  supabase=Supabase.instance.client;
+  supabase.from("cuisine").insert(Cuisine(id: 3, type: "aaa"));
   print("Connexion Supabase établie");
   // App et providers pour la bd
   runApp(

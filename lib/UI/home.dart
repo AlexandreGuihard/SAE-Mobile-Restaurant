@@ -35,11 +35,9 @@ class RestaurantsPage extends StatelessWidget {
               !snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           }
-
           if (snapshot.data == null || snapshot.data!.isEmpty) {
             return const Center(child: Text("Aucun restaurant trouvé."));
           }
@@ -108,27 +106,22 @@ class RestaurantsPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          title:
-                          Text(filteredRestaurants[index].nomRestaurant),
+                          title: Text(filteredRestaurants[index].nomRestaurant),
                           subtitle: Text(
                               'Note: ${filteredRestaurants[index].nbEtoiles} ⭐'),
                           onTap: () {
-                            Navigator.pushNamed(context, '/detail');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(restaurant : filteredRestaurants[index])));
                           },
                         );
                       },
                     ),
-                    title: Text(snapshot.data![index].nomRestaurant),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(restaurant: snapshot.data![index])));
-                    },
-                  );
-                },
-              ),
-            );
-          }
-          return Container();
-      }
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
