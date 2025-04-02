@@ -16,10 +16,17 @@ class UtilisateurProvider extends ChangeNotifier{
     return await db.query("utilisateur", where:"idutilisateur=$idUtilisateur");
   }
 
-  Future<Utilisateur> getUtilisateurFromIdSupabase(int idUtilisateur) async{
-    final Map<String, dynamic> map=await supabase.from("utilisateur").select().eq("idutilisateur", idUtilisateur);
-    return Utilisateur.fromMap(map);
+  Future<Utilisateur> getUtilisateurFromIdSupabase(int idUtilisateur) async {
+    final List<dynamic> result = await supabase.from("utilisateur").select().eq("idutilisateur", idUtilisateur);
+    if (result.isNotEmpty) {
+      final List<Map<String, dynamic>> maps = List<Map<String, dynamic>>.from(result);
+      return Utilisateur.fromMap(maps.first);
+    } else {
+      throw Exception("Utilisateur non trouvé");
+    }
   }
+
+
 
   Future<Utilisateur?> getUtilisateurFromPseudoPassword(String pseudo, String password) async{
     final List<Map<String, dynamic>> map=await supabase.from("utilisateur").select().eq("pseudo", pseudo).eq("motdepasse", password);
