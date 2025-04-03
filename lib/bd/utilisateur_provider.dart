@@ -50,4 +50,26 @@ class UtilisateurProvider extends ChangeNotifier{
     int idUtilisateur=utilisateur.idUtilisateur;
     await db.update("utilisateur", utilisateur.toMap(), where: "idutilisateur=$idUtilisateur");
   }
+
+  void ajouterFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.insert(
+        "prefererrestaurant",
+        {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant});
+  }
+
+  void ajouterFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.insert(
+        "preferercuisine",
+        {"idutilisateur": idUtilisateur, "idcuisine": idCuisine});
+  }
+
+  void supprimerFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.delete("prefererrestaurant",
+        where: "idutilisateur=$idUtilisateur and idrestaurant=$idRestaurant");
+  }
+
+  void supprimerFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.delete("preferercuisine",
+        where: "idutilisateur=$idUtilisateur and idcuisine=$idCuisine");
+  }
 }
