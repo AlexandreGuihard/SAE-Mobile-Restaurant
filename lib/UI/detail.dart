@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sae_mobile/model/restaurant.dart';
+import 'package:sae_mobile/bd/restaurant_provider.dart';
 
 class DetailPage extends StatelessWidget {
   final Restaurant restaurant;
@@ -155,6 +157,11 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
+            ElevatedButton(onPressed: () {
+              //TODO : Faire balader l'utilisateur dans toute les pages
+              //TODO : transformer cette page en stateful pour modifier l'apparence du bouton en fonction de si l'utilisateur est connecter ou si il a ou non le restaurant en favoris
+              context.watch<RestaurantProvider>().ajouterFavorisRestaurant(utilisateur.id, restaurant.id);
+            }, child: Text("Ajouter au favoris"))
           ],
         ),
       ),
