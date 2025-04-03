@@ -35,11 +35,6 @@ class RestaurantProvider extends ChangeNotifier{
     }));
   }
 
-  Future<Restaurant> getRestaurantFromIdSupabase(int idRestaurant) async{
-    final Map<String, dynamic> map= await supabase.from("restaurant").select().eq("idrestaurant", idRestaurant).single();
-    return Restaurant.fromMap(map);
-  }
-
   // Inserts
   void insertRestaurant(Restaurant restaurant) async {
     await db.insert("restaurant", restaurant.toMap());
