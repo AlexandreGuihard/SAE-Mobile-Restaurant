@@ -6,6 +6,7 @@ class RestaurantProvider extends ChangeNotifier{
   final supabase;
 
   RestaurantProvider({required this.db, required this.supabase});
+  RestaurantProvider.supabaseOnly({required this.supabase}) : db = null;
 
   // Selects
   Future<List<Restaurant>> getRestaurants() async {
@@ -19,6 +20,11 @@ class RestaurantProvider extends ChangeNotifier{
   Future<Restaurant> getRestaurantFromId(int idRestaurant) async {
     final Map<String, dynamic> map = await db.query('restaurant', where: 'idrestaurant = $idRestaurant');
 
+    return Restaurant.fromMap(map);
+  }
+
+  Future<Restaurant> getRestaurantFromIdSupabase(int idRestaurant) async{
+    final Map<String, dynamic> map= await supabase.from("restaurant").select().eq("idrestaurant", idRestaurant).single();
     return Restaurant.fromMap(map);
   }
 

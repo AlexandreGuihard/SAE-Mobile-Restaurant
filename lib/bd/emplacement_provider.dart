@@ -7,6 +7,7 @@ class EmplacementProvider extends ChangeNotifier{
   final supabase;
 
   EmplacementProvider({required this.db, required this.supabase});
+  EmplacementProvider.supabaseOnly({required this.supabase}) : db = null;
 
   void insertEmplacement(Emplacement emplacement) async{
     await db.insert("emplacement", emplacement.toMap());
@@ -19,7 +20,7 @@ class EmplacementProvider extends ChangeNotifier{
   }
 
   Future<Emplacement> getEmplacementFromCommuneSupabase(String commune) async{
-    final Map<String, dynamic> map=await supabase.from("emplacement").select().eq("commune", commune);
+    final Map<String, dynamic> map=await supabase.from("emplacement").select().eq("commune", commune).single();
     return Emplacement.fromMap(map);
   }
 
