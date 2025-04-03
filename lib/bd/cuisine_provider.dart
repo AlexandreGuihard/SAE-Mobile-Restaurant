@@ -38,7 +38,7 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   Future<List<Cuisine>> getFavorisCuisine(int idUtilisateur) async {
-    final List<Map<String, dynamic>> maps = await db.query('preferercuisine', where: "idutilisateur= ?", whereArgs: [idUtilisateur]);
+    final List<Map<String, dynamic>> maps = await supabase.from("preferercuisine").select().eq("idrestaurant", idUtilisateur);
     return Future.wait(maps.map((map) async {
       return await getCuisineFromId(map["idcuisine"]);
     }));
