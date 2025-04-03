@@ -22,9 +22,23 @@ class RestaurantProvider extends ChangeNotifier{
     return Restaurant.fromMap(map);
   }
 
+  // favoris
+  Future<List<Restaurant>> getFavorisRestaurant(int idUtilisateur) async {
+    final List<Map<String, dynamic>> maps = await db.query('prefererrestaurant', where: "idutilisateur= ?", whereArgs: [idUtilisateur]);
+    return Future.wait(maps.map((map) async {
+      return await getRestaurantFromId(map["idrestaurant"]);
+    }));
+  }
+
   // Inserts
   void insertRestaurant(Restaurant restaurant) async {
     await db.insert("restaurant", restaurant.toMap());
+  }
+
+  void ajouterFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.insert(
+        "prefererrestaurant",
+        {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant});
   }
 
   // Update
@@ -36,6 +50,11 @@ class RestaurantProvider extends ChangeNotifier{
   // Delete
   void deleteRestaurant(int idRestaurant) async {
     await db.delete("restaurant", where: 'idrestaurant = $idRestaurant');
+  }
+
+  void supprimerFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.delete("prefererrestaurant",
+        where: "idutilisateur=$idUtilisateur and idrestaurant=$idRestaurant");
   }
 
   Future<List<Restaurant>> getRestaurantsSupabase() async{

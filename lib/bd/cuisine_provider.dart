@@ -37,6 +37,13 @@ class CuisineProvider extends ChangeNotifier{
     });
   }
 
+  Future<List<Cuisine>> getFavorisCuisine(int idUtilisateur) async {
+    final List<Map<String, dynamic>> maps = await db.query('preferercuisine', where: "idutilisateur= ?", whereArgs: [idUtilisateur]);
+    return Future.wait(maps.map((map) async {
+      return await getCuisineFromId(map["idcuisine"]);
+    }));
+  }
+
   void deleteCuisine(int idCuisine) async{
     await db.delete("cuisine", where:"idcuisine=$idCuisine");
   }
@@ -44,5 +51,16 @@ class CuisineProvider extends ChangeNotifier{
   void updateCuisine(Cuisine cuisine) async{
     int idCuisine=cuisine.id;
     await db.update("cuisine", cuisine.toMap(), where:"idcuisine=$idCuisine");
+  }
+
+  void ajouterFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.insert(
+        "preferercuisine",
+        {"idutilisateur": idUtilisateur, "idcuisine": idCuisine});
+  }
+
+  void supprimerFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.delete("preferercuisine",
+        where: "idutilisateur=$idUtilisateur and idcuisine=$idCuisine");
   }
 }
