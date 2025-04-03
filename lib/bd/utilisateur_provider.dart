@@ -10,6 +10,7 @@ class UtilisateurProvider extends ChangeNotifier{
   Utilisateur? utilisateur;
 
   UtilisateurProvider({required this.db, required this.supabase});
+  UtilisateurProvider.supabaseOnly({required this.supabase}) : db = null;
 
   void insertUtilisateur(Utilisateur utilisateur) async{
     await db.insert("utilisateur", utilisateur.toMap());

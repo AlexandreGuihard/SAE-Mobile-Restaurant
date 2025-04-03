@@ -8,6 +8,7 @@ class CuisineProvider extends ChangeNotifier{
   final supabase;
 
   CuisineProvider({required this.db, required this.supabase});
+  CuisineProvider.supabaseOnly({required this.supabase}) : db = null;
 
   void insertCuisine(Cuisine cuisine) async{
     await db.insert("CUISINE", cuisine.toMap());
@@ -19,7 +20,8 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   Future<Cuisine> getCuisineFromIdSupabase(int idCuisine) async{
-    return await supabase.from("cuisine").select().eq("idcuisine", idCuisine);
+    final Map<String, dynamic> map=await supabase.from("cuisine").select().eq("idcuisine", idCuisine).single();
+    return Cuisine.fromMap(map);
   }
 
   Future<List<Cuisine>> getCuisines() async{
