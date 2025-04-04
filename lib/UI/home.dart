@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sae_mobile/UI/AppNavigation.dart';
 import 'package:sae_mobile/bd/restaurant_provider.dart';
 import 'package:sae_mobile/model/restaurant.dart';
 

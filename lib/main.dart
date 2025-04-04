@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+import 'package:sae_mobile/UI/AppNavigation.dart';
 import 'package:sae_mobile/bd/cuisine_provider.dart';
 import 'package:sae_mobile/bd/emplacement_provider.dart';
 import 'package:sae_mobile/bd/restaurant_provider.dart';
@@ -75,12 +76,12 @@ void main() async {
               debugShowCheckedModeBanner: false,
               title: "Restaurants",
               routes: {
-                '/': (context) => RestaurantsPage(),
+                '/': (context) => AppNavigation(),
                 '/connection': (context) => MyCustomForm(),
                 '/profil/favoris/restaurants': (context) => MyCustomForm(),
                 '/profil/favoris/cuisine': (context) => MyCustomForm(),
               },
-              initialRoute: '/connection'
+              initialRoute: '/connection',
           )
       )
   );
