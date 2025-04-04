@@ -6,25 +6,43 @@ class RestaurantProvider extends ChangeNotifier{
   final supabase;
 
   RestaurantProvider({required this.db, required this.supabase});
+  RestaurantProvider.supabaseOnly({required this.supabase}) : db = null;
 
   // Selects
-  Future<List<Restaurant>> getRestaurants() async {
-    final List<Map<String, dynamic>> maps = await db.query('restaurant');
-
-    return List.generate(maps.length, (i) {
+  Future<List<Restaurant>> getRestaurantsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("restaurant").select();
+    return List.generate(maps.length, (i){
       return Restaurant.fromMap(maps[i]);
     });
   }
 
-  Future<Restaurant> getRestaurantFromId(int idRestaurant) async {
-    final Map<String, dynamic> map = await db.query('restaurant', where: 'idrestaurant = $idRestaurant');
+  Future<Restaurant?> getRestaurantFromIdSupabase(int idRestaurant) async{
+    print("get favoris");
+    final List<Map<String, dynamic>> map=await supabase.from("restaurant").select().eq("idrestaurant", idRestaurant);
 
-    return Restaurant.fromMap(map);
+    if (map.isNotEmpty) {
+      return Restaurant.fromMap(map.first);
+    } else {
+      return null;
+    }
+  }
+
+  // favoris
+  Future<List<Restaurant?>> getFavorisRestaurant(int idUtilisateur) async {
+    final List<Map<String, dynamic>> maps = await db.query('prefererrestaurant', where: "idutilisateur= ?", whereArgs: [idUtilisateur]);
+    return Future.wait(maps.map((map) async {
+      return await getRestaurantFromIdSupabase(map["idrestaurant"]);
+    }));
   }
 
   void insertRestaurantSupabase(Restaurant restaurant) async {
     await supabase.from("restaurant").insert(restaurant.toMap());
   }
+
+  void ajouterFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.insert(
+        "prefererrestaurant",
+        {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant});
 
   void updateRestaurantSupabase(Restaurant restaurant) async {
     await supabase.from("restaurant").update(restaurant.toMap()).eq("idrestaurant", restaurant.id);
@@ -34,20 +52,17 @@ class RestaurantProvider extends ChangeNotifier{
     await supabase.from("restaurant").delete().eq("idrestaurant", idRestaurant);
   }
 
-  Future<List<Restaurant>> getRestaurantsSupabase() async{
-    final List<Map<String, dynamic>> maps=await supabase.from("restaurant").select();
-    return List.generate(maps.length, (i){
-      return Restaurant.fromMap(maps[i]);
-    });
-  }
+  // Update
 
-  Future<Restaurant?> getRestaurantFromIdSupabase(int idRestaurant) async{
-    final List<Map<String, dynamic>> map=await supabase.from("restaurant").select().eq("restaurant", idRestaurant);
 
-    if (map.isNotEmpty) {
-      return Restaurant.fromMap(map.first);
-    } else {
-      return null;
-    }
+  // Delete
+  void supprimerFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    print(idUtilisateur);
+    print(idRestaurant);
+    await db.delete(
+      "prefererrestaurant",
+      where: "idutilisateur= ? and idrestaurant= ?",
+      whereArgs: [idUtilisateur, idRestaurant]
+    );
   }
 }

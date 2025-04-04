@@ -19,4 +19,14 @@ class TypeRestaurant {
   String toString() {
     return "Restaurant{id: $id, type: $type}";
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          (other is TypeRestaurant &&
+              other.id == id &&
+              other.type == type);
+
+  @override
+  int get hashCode => id.hashCode ^ type.hashCode;
 }

@@ -8,6 +8,7 @@ class CuisineProvider extends ChangeNotifier{
   final supabase;
 
   CuisineProvider({required this.db, required this.supabase});
+  CuisineProvider.supabaseOnly({required this.supabase}) : db = null;
 
   void insertCuisineSupabase(Cuisine cuisine) async{
     await supabase.from("cuisine").insert(cuisine.toMap());
@@ -19,7 +20,8 @@ class CuisineProvider extends ChangeNotifier{
   }
 
   Future<Cuisine> getCuisineFromIdSupabase(int idCuisine) async{
-    return await supabase.from("cuisine").select().eq("idcuisine", idCuisine);
+    final Map<String, dynamic> map=await supabase.from("cuisine").select().eq("idcuisine", idCuisine).single();
+    return Cuisine.fromMap(map);
   }
 
   Future<List<Cuisine>> getCuisines() async{
@@ -37,11 +39,29 @@ class CuisineProvider extends ChangeNotifier{
     });
   }
 
+  Future<List<Cuisine>> getFavorisCuisine(int idUtilisateur) async {
+    final List<Map<String, dynamic>> maps = await db.query('preferercuisine', where: "idutilisateur= ?", whereArgs: [idUtilisateur]);
+    return Future.wait(maps.map((map) async {
+      return await getCuisineFromIdSupabase(map["idcuisine"]);
+    }));
+  }
+
   void deleteCuisineSupabase(int idCuisine) async{
     await supabase.from("cuisine").delete().eq("idcuisine", idCuisine);
   }
 
   void updateCuisineSupabase(Cuisine cuisine) async{
     await supabase.from("cuisine").update(cuisine.toMap()).eq("idcuisine", cuisine.id);
+  }
+
+  void ajouterFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.insert(
+        "preferercuisine",
+        {"idutilisateur": idUtilisateur, "idcuisine": idCuisine});
+  }
+
+  void supprimerFavorisCuisine(int idUtilisateur, int idCuisine) async {
+    await db.delete("preferercuisine",
+        where: "idutilisateur=$idUtilisateur and idcuisine=$idCuisine");
   }
 }

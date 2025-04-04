@@ -1,10 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sae_mobile/model/restaurant.dart';
+import 'package:sae_mobile/bd/restaurant_provider.dart';
+import 'package:sae_mobile/model/utilisateur.dart';
 
-class DetailPage extends StatelessWidget {
+import '../bd/utilisateur_provider.dart';
+
+class DetailPage extends StatefulWidget {
   final Restaurant restaurant;
 
   const DetailPage({required this.restaurant});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  String textBoutonFavoris = "";
+
+  @override
+  void initState() {
+    super.initState();
+    loadBoutonFavorisState();
+  }
+
+  Future<void> loadBoutonFavorisState() async {
+    print("get utilisateur");
+    Utilisateur? user = Provider.of<UtilisateurProvider>(context, listen: false).utilisateur;
+    if (user != null) {
+      List<Restaurant?> favoris = await Provider.of<RestaurantProvider>(context, listen: false).getFavorisRestaurant(user.idUtilisateur);
+      setState(() {
+        textBoutonFavoris = favoris.contains(widget.restaurant) ? "Retirer des favoris" : "Ajouter aux favoris";
+      });
+    } else {
+      setState(() {
+        textBoutonFavoris = "";
+      });
+    }
+  }
+
+  Future toggleBoutonFavoris() async {
+    print("get utilisateur");
+    Utilisateur? user = Provider.of<UtilisateurProvider>(context, listen: false).utilisateur;
+    if (user != null) {
+      List<Restaurant?> favoris = await Provider.of<RestaurantProvider>(context, listen: false).getFavorisRestaurant(user.idUtilisateur);
+
+      bool isFavori = favoris.contains(widget.restaurant);
+
+      if (isFavori) {
+        print("supprimer favoris");
+        Provider.of<RestaurantProvider>(context, listen: false).supprimerFavorisRestaurant(user.idUtilisateur, widget.restaurant.id);
+      } else {
+        print("ajouter favoris");
+        Provider.of<RestaurantProvider>(context, listen: false).ajouterFavorisRestaurant(user.idUtilisateur, widget.restaurant.id);
+      }
+
+      // Mise à jour de l'interface après modification
+      setState(() {
+        textBoutonFavoris = isFavori ? "Ajouter aux favoris" : "Retirer des favoris";
+      });
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +87,7 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              restaurant.nomRestaurant,
+              widget.restaurant.nomRestaurant,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -38,7 +95,7 @@ class DetailPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'Horaires :${restaurant.horaires}',
+              'Horaires :${widget.restaurant.horaires}',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 10),
@@ -55,7 +112,7 @@ class DetailPage extends StatelessWidget {
               children: <Widget>[
                 Builder(
                   builder: (context) {
-                    if (restaurant.vegan) {
+                    if (widget.restaurant.vegan) {
                       return Row(
                           children: [
                             Icon(
@@ -80,7 +137,7 @@ class DetailPage extends StatelessWidget {
                 ),
                 Builder(
                   builder: (context) {
-                    if (restaurant.vegetarien) {
+                    if (widget.restaurant.vegetarien) {
                       return Row(
                           children: [
                             Icon(
@@ -105,7 +162,7 @@ class DetailPage extends StatelessWidget {
                 ),
                 Builder(
                   builder: (context) {
-                    if (restaurant.accessInternet) {
+                    if (widget.restaurant.accessInternet) {
                       return Row(
                           children: [
                             Icon(
@@ -130,7 +187,7 @@ class DetailPage extends StatelessWidget {
                 ),
                 Builder(
                   builder: (context) {
-                    if (restaurant.entreeFauteuilRoulant) {
+                    if (widget.restaurant.entreeFauteuilRoulant) {
                       return Row(
                           children: [
                             Icon(
@@ -155,6 +212,10 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
+            if (context.watch<UtilisateurProvider>().utilisateur != null)
+              ElevatedButton(
+                onPressed: toggleBoutonFavoris,
+                child: Text(textBoutonFavoris)),
           ],
         ),
       ),

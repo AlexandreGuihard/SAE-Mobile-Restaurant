@@ -10,6 +10,7 @@ class AvisProvider extends ChangeNotifier{
   final restaurantProvider;
 
   AvisProvider({required this.db, required this.supabase, required this.utilisateurProvider, required this.restaurantProvider});
+  AvisProvider.supabaseOnly({required this.supabase, required this.utilisateurProvider, required this.restaurantProvider}):db=null;
 
   void insertAvisSupabase(AvisUtilisateur avis) async{
     await supabase.from("donner").insert(avis.toMap());

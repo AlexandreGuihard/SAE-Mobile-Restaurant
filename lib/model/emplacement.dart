@@ -23,4 +23,15 @@ class Emplacement {
   String toString(){
     return "Emplacement: $commune, $departement ($numDepartement)";
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          (other is Emplacement &&
+              other.commune == commune &&
+              other.numDepartement == numDepartement &&
+              other.departement == departement);
+
+  @override
+  int get hashCode => commune.hashCode ^ numDepartement.hashCode ^ departement.hashCode;
 }

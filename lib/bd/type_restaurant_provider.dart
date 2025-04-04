@@ -6,6 +6,7 @@ class TypeRestaurantProvider extends ChangeNotifier{
   final supabase;
 
   TypeRestaurantProvider({required this.db, required this.supabase});
+  TypeRestaurantProvider.supabaseOnly({required this.supabase}) : db = null;
 
   // Selects
   Future<List<TypeRestaurant>> getTypesRestaurants() async {
@@ -16,12 +17,25 @@ class TypeRestaurantProvider extends ChangeNotifier{
     });
   }
 
+  Future<List<TypeRestaurant>> getTypesRestaurantsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("typerestaurant").select();
+    return List.generate(maps.length, (i){
+      return TypeRestaurant.fromMap(maps[i]);
+    });
+  }
+
   Future<TypeRestaurant> getTypeRestaurantsFromId(int idType) async {
     final Map<String, dynamic> map = await db.query('typerestaurant', where: 'idtype = $idType');
 
     return TypeRestaurant.fromMap(map);
   }
 
+  Future<TypeRestaurant> getTypeRestaurantFromIdSupabase(int idType) async{
+    final Map<String, dynamic> map=await supabase.from("typerestaurant").select().eq("idtype", idType).single();
+    return TypeRestaurant.fromMap(map);
+  }
+
+  // Inserts
   void insertTypeRestaurantsSupabase(TypeRestaurant type) async {
     await supabase.from("typerestaurant").insert(type.toMap());
   }

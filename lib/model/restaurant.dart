@@ -81,4 +81,42 @@ class Restaurant {
   String toString() {
     return "Restaurant{id: $id, idType: $idType, nomRestaurant: $nomRestaurant, horaires: $horaires, siret: $siret, numTel: $numTel, urlWeb: $urlWeb, commune: $commune, vegetarien: $vegetarien, vegan: $vegan, entreeFauteuilRoulant: $entreeFauteuilRoulant, accessInternet: $accessInternet,  marque: $marque,  nbEtoiles: $nbEtoiles,  urlFacebook: $urlFacebook}";
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          (other is Restaurant &&
+              other.id == id &&
+              other.idType == idType &&
+              other.nomRestaurant == nomRestaurant &&
+              other.horaires == horaires &&
+              other.siret == siret &&
+              other.numTel == numTel &&
+              other.urlWeb == urlWeb &&
+              other.commune == commune &&
+              other.vegetarien == vegetarien &&
+              other.vegan == vegan &&
+              other.entreeFauteuilRoulant == entreeFauteuilRoulant &&
+              other.accessInternet == accessInternet &&
+              other.marque == marque &&
+              other.nbEtoiles == nbEtoiles &&
+              other.urlFacebook == urlFacebook);
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      idType.hashCode ^
+      nomRestaurant.hashCode ^
+      horaires.hashCode ^
+      siret.hashCode ^
+      numTel.hashCode ^
+      urlWeb.hashCode ^
+      commune.hashCode ^
+      vegetarien.hashCode ^
+      vegan.hashCode ^
+      entreeFauteuilRoulant.hashCode ^
+      accessInternet.hashCode ^
+      marque.hashCode ^
+      nbEtoiles.hashCode ^
+      urlFacebook.hashCode;
 }

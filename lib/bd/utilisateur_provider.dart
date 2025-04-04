@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:sae_mobile/model/restaurant.dart';
 
 import '../model/utilisateur.dart';
 
@@ -6,7 +7,10 @@ class UtilisateurProvider extends ChangeNotifier{
   final db;
   final supabase;
 
+  Utilisateur? utilisateur;
+
   UtilisateurProvider({required this.db, required this.supabase});
+  UtilisateurProvider.supabaseOnly({required this.supabase}) : db = null;
 
   void insertUtilisateurSupabase(Utilisateur utilisateur) async{
     await supabase.from("utilisateur").insert(utilisateur.toMap());
@@ -25,10 +29,9 @@ class UtilisateurProvider extends ChangeNotifier{
     final List<Map<String, dynamic>> map=await supabase.from("utilisateur").select().eq("pseudo", pseudo).eq("motdepasse", password);
 
     if (map.isNotEmpty) {
-      return Utilisateur.fromMap(map.first);
-    } else {
-      return null;
+      this.utilisateur = Utilisateur.fromMap(map.first);
     }
+    return this.utilisateur;
   }
 
   Future<List<Utilisateur>> getUtilisateurs() async{
