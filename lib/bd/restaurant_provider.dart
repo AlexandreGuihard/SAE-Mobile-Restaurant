@@ -22,20 +22,16 @@ class RestaurantProvider extends ChangeNotifier{
     return Restaurant.fromMap(map);
   }
 
-  // Inserts
-  void insertRestaurant(Restaurant restaurant) async {
-    await db.insert("restaurant", restaurant.toMap());
+  void insertRestaurantSupabase(Restaurant restaurant) async {
+    await supabase.from("restaurant").insert(restaurant.toMap());
   }
 
-  // Update
-  void updateRestaurant(Restaurant restaurant) async {
-    int idRestaurant=restaurant.id;
-    await db.update("restaurant", restaurant.toMap(), where: 'idrestaurant = $idRestaurant');
+  void updateRestaurantSupabase(Restaurant restaurant) async {
+    await supabase.from("restaurant").update(restaurant.toMap()).eq("idrestaurant", restaurant.id);
   }
 
-  // Delete
-  void deleteRestaurant(int idRestaurant) async {
-    await db.delete("restaurant", where: 'idrestaurant = $idRestaurant');
+  void deleteRestaurantSupabase(int idRestaurant) async {
+    await supabase.from("restaurant").delete().eq("idrestaurant", idRestaurant);
   }
 
   Future<List<Restaurant>> getRestaurantsSupabase() async{

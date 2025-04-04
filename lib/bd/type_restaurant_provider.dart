@@ -22,19 +22,15 @@ class TypeRestaurantProvider extends ChangeNotifier{
     return TypeRestaurant.fromMap(map);
   }
 
-  // Inserts
-  void insertTypeRestaurants(TypeRestaurant type) async {
-    await db.insert("typerestaurant", type.toMap());
+  void insertTypeRestaurantsSupabase(TypeRestaurant type) async {
+    await supabase.from("typerestaurant").insert(type.toMap());
   }
 
-  // Update
-  void updateTypeRestaurants(TypeRestaurant type) async {
-    int idType=type.id;
-    await db.update("typerestaurant", type.toMap(), where: 'idtype = $idType');
+  void updateTypeRestaurantsSupabase(TypeRestaurant type) async {
+    await supabase.from("typerestaurant").update(type.toMap()).eq("idtype", type.id);
   }
 
-  // Delete
-  void deleteTypeRestaurants(int idType) async {
-    await db.delete("typerestaurant", where: 'idtype =$idType');
+  void deleteTypeRestaurantsSupabase(int idType) async {
+    await supabase.from("typerestaurant").delete().eq("idtype", idType);
   }
 }
