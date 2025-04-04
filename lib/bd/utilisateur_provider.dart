@@ -12,8 +12,8 @@ class UtilisateurProvider extends ChangeNotifier{
   UtilisateurProvider({required this.db, required this.supabase});
   UtilisateurProvider.supabaseOnly({required this.supabase}) : db = null;
 
-  void insertUtilisateur(Utilisateur utilisateur) async{
-    await db.insert("utilisateur", utilisateur.toMap());
+  void insertUtilisateurSupabase(Utilisateur utilisateur) async{
+    await supabase.from("utilisateur").insert(utilisateur.toMap());
   }
 
   Future<Utilisateur> getUtilisateurFromId(int idUtilisateur) async{
@@ -45,12 +45,11 @@ class UtilisateurProvider extends ChangeNotifier{
     });
   }
 
-  void deleteUtilisateur(int idUtilisateur) async{
-    await db.delete("utilisateur", where: "idutilisateur=$idUtilisateur");
+  void deleteUtilisateurSupabase(int idUtilisateur) async{
+    await supabase.from("utilisateur").delete().eq("idutilisateur", idUtilisateur);
   }
 
-  void updateUtilisateur(Utilisateur utilisateur) async{
-    int idUtilisateur=utilisateur.idUtilisateur;
-    await db.update("utilisateur", utilisateur.toMap(), where: "idutilisateur=$idUtilisateur");
+  void updateUtilisateurSupabase(Utilisateur utilisateur) async{
+    await supabase.from("utilisateur").update(utilisateur.toMap()).eq("idutilisateur", utilisateur.idUtilisateur);
   }
 }

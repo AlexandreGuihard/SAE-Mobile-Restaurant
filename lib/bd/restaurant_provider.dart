@@ -35,15 +35,21 @@ class RestaurantProvider extends ChangeNotifier{
     }));
   }
 
-  // Inserts
-  void insertRestaurant(Restaurant restaurant) async {
-    await db.insert("restaurant", restaurant.toMap());
+  void insertRestaurantSupabase(Restaurant restaurant) async {
+    await supabase.from("restaurant").insert(restaurant.toMap());
   }
 
   void ajouterFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
     await db.insert(
         "prefererrestaurant",
         {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant});
+
+  void updateRestaurantSupabase(Restaurant restaurant) async {
+    await supabase.from("restaurant").update(restaurant.toMap()).eq("idrestaurant", restaurant.id);
+  }
+
+  void deleteRestaurantSupabase(int idRestaurant) async {
+    await supabase.from("restaurant").delete().eq("idrestaurant", idRestaurant);
   }
 
   // Update

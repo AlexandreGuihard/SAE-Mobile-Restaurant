@@ -12,8 +12,8 @@ class AvisProvider extends ChangeNotifier{
   AvisProvider({required this.db, required this.supabase, required this.utilisateurProvider, required this.restaurantProvider});
   AvisProvider.supabaseOnly({required this.supabase, required this.utilisateurProvider, required this.restaurantProvider}):db=null;
 
-  void insertAvis(AvisUtilisateur avis) async{
-    await db.insert("DONNER", avis.toMap());
+  void insertAvisSupabase(AvisUtilisateur avis) async{
+    await supabase.from("donner").insert(avis.toMap());
   }
 
   Future<AvisUtilisateur> getAvisFromPrimaryKeySupabase(int idUtilisateur, int idRestaurant, String dateAvis) async{
@@ -36,5 +36,13 @@ class AvisProvider extends ChangeNotifier{
       lesAvis.add(avisObject);
     }
     return lesAvis;
+  }
+
+  void updateAvisSupabase(AvisUtilisateur avis) async{
+    await supabase.from("donner").update(avis.toMap()).eq("idutilisateur", avis.utilisateur.idUtilisateur).eq("dateavis", avis.dateAvis).eq("idrestaurant", avis.restaurant.id);
+  }
+
+  void deleteAvisSupabase(int idUtilisateur, String dateAvis, int idRestaurant) async{
+    await supabase.from("donner").delete().eq("idutilisateur", idUtilisateur).eq("dateavis", dateAvis).eq("idrestaurant", idRestaurant);
   }
 }

@@ -15,6 +15,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:sae_mobile/UI/home.dart';
 import 'package:sae_mobile/UI/detail.dart';
+import 'package:sae_mobile/UI/cuisines.dart';
 import 'package:sae_mobile/UI/connection.dart';
 import 'package:sae_mobile/model/restaurant.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -80,6 +81,7 @@ void main() async {
                 '/connection': (context) => MyCustomForm(),
                 '/profil/favoris/restaurants': (context) => MyCustomForm(),
                 '/profil/favoris/cuisine': (context) => MyCustomForm(),
+                '/cuisines' : (context) => CuisinePage(),
               },
               initialRoute: '/connection',
           )

@@ -14,6 +14,7 @@ class Restaurant {
   String marque;
   int nbEtoiles;
   String urlFacebook;
+  String image;
 
   Restaurant({
     required this.id,
@@ -31,6 +32,7 @@ class Restaurant {
     required this.marque,
     required this.nbEtoiles,
     required this.urlFacebook,
+    required this.image
   });
 
   Map<String, dynamic> toMap() {
@@ -46,10 +48,11 @@ class Restaurant {
       'vegetarien': vegetarien,
       'vegan': vegan,
       'entreefauteuilroulant': entreeFauteuilRoulant,
-      'accessinternet': accessInternet,
+      'accesinternet': accessInternet,
       'marquerestaurant': marque,
       'nbetoiles': nbEtoiles,
-      'urlfacebook': urlFacebook
+      'urlfacebook': urlFacebook,
+      "image": image
     };
   }
 
@@ -70,6 +73,7 @@ class Restaurant {
       marque: map['marquerestaurant'],
       nbEtoiles: map['nbetoiles'],
       urlFacebook: map['urlfacebook'],
+      image: map["image"]
     );
   }
 

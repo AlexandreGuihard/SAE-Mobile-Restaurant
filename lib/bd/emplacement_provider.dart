@@ -9,8 +9,8 @@ class EmplacementProvider extends ChangeNotifier{
   EmplacementProvider({required this.db, required this.supabase});
   EmplacementProvider.supabaseOnly({required this.supabase}) : db = null;
 
-  void insertEmplacement(Emplacement emplacement) async{
-    await db.insert("emplacement", emplacement.toMap());
+  void insertEmplacementSupabase(Emplacement emplacement) async{
+    await supabase.from("emplacement").insert(emplacement.toMap());
   }
 
   Future<Emplacement> getEmplacementFromCommune(String commune) async{
@@ -39,12 +39,11 @@ class EmplacementProvider extends ChangeNotifier{
     });
   }
 
-  void deleteEmplacement(String commune) async{
-    await db.delete("emplacement", where:"commune=$commune");
+  void deleteEmplacementSupabase(String commune) async{
+    await supabase.from("emplacement").delete().eq("commune", commune);
   }
 
-  void updateEmplacement(Emplacement emplacement) async{
-    String commune=emplacement.commune;
-    await db.update("emplacement", emplacement.toMap(), where:"commune=$commune");
+  void updateEmplacementSupabase(Emplacement emplacement) async{
+    await supabase.from("emplacement").update(emplacement.toMap()).eq("commune", emplacement.commune);
   }
 }
