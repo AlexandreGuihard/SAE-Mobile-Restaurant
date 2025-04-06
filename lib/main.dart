@@ -81,7 +81,8 @@ void main() async {
                 '/connection': (context) => MyCustomForm(),
                 '/profil/favoris/restaurants': (context) => MyCustomForm(),
                 '/profil/favoris/cuisine': (context) => MyCustomForm(),
-                '/cuisines' : (context) => CuisinePage(),
+                '/cuisines' : (context) => AppNavigation(),
+                '/profile' : (context) => AppNavigation(),
               },
               initialRoute: '/connection',
           )
