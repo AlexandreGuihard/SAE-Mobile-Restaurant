@@ -58,6 +58,7 @@ class _CuisinePageState extends State<CuisinePage> {
                       title: Text(lesCuisines[index].type),
                       trailing: IconButton(
                         icon: Icon(isFavori ? Icons.favorite : Icons.favorite_border),
+                        tooltip: isFavori ? "Ajouter aux favoris" : "Retirer des favoris",
                         onPressed: () async {
                           Utilisateur? user = Provider.of<UtilisateurProvider>(context, listen: false).utilisateur;
 
