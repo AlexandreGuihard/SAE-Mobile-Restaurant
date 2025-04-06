@@ -33,16 +33,18 @@ flutter run -d chrome
 
 ## Fonctionnalité implémentées
 
-Il est possible de se connecter avec le compte ```Alice123``` et le mot de passe ```passAlice```
+Connexion possible avec le compte ```Alice123``` et le mot de passe ```passAlice```
 
-Il est possible de voir les restaurants et types de cuisine stocké dans la base de données supabase
+Affichage des restaurants et des types de cuisine récupérés dans la base de données Supabase
 
-Il est possible de rechercher un restaurant selon son nom
+Recherche par nom ou par note
 
-Il est possible d'ordonner les restaurants selon leur nom ou selon leur note
+Triage par nom et par note
 
-Il est possible de noter un restaurant
+Possibilité de noter un restaurant
 
-Il est possible de mettre en favoris des restaurants et des types de cuisine stocké dans une base de données locale sqflite
+Ajout de restaurants et de types de cuisine aux favoris
 
-Il est possible de voir les restaurants et types de cuisine en favoris dans la page ```mon profil```
+Les favoris sont stockés en local via une base de données Sqflite
+
+Accès à une page "Mon profil" permettant de voir tous les restaurants et types de cuisine ajoutés en favoris.
