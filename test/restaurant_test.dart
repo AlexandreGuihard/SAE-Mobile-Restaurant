@@ -33,7 +33,8 @@ void main() async{
           accessInternet: true,
           marque: "Indépendant",
           nbEtoiles: 4,
-          urlFacebook: "http://facebook.com/lepetitgourmet"
+          urlFacebook: "http://facebook.com/lepetitgourmet",
+          image: ''
       );
 
       final Restaurant laBellaPizza=Restaurant(
@@ -51,7 +52,8 @@ void main() async{
           accessInternet: true,
           marque: "Franchise",
           nbEtoiles: 5,
-          urlFacebook: "http://facebook.com/labellapizza"
+          urlFacebook: "http://facebook.com/labellapizza",
+          image: ''
       );
       expect(await provider.getRestaurantFromIdSupabase(1), lePetitGourmet);
       expect(await provider.getRestaurantFromIdSupabase(2), laBellaPizza);

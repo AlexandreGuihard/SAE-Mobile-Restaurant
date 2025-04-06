@@ -20,12 +20,14 @@ void main(){
     test("Get une cuisine de la bd", () async{
       final Cuisine cuisineFrancaise=Cuisine(id: 1, type: "Francaise");
       final Cuisine cuisineItalienne=Cuisine(id: 2, type: "Italienne");
+      final Cuisine cuisineBolo=Cuisine(id: 12, type: 'bolo');
       expect(await provider.getCuisineFromIdSupabase(1), cuisineFrancaise);
       expect(await provider.getCuisineFromIdSupabase(2), cuisineItalienne);
+      expect(await provider.getCuisineFromIdSupabase(12), cuisineBolo);
     });
 
     test("Get toutes les cuisines de la bd", () async{
-      final List<Cuisine> cuisines=List.of([Cuisine(id: 1, type: "Francaise"), Cuisine(id: 2, type: "Italienne")]);
+      final List<Cuisine> cuisines=List.of([Cuisine(id: 1, type: "Francaise"), Cuisine(id: 2, type: "Italienne"), Cuisine(id: 12, type: 'bolo')]);
       expect(await provider.getCuisinesSupabase(), cuisines);
     });
   });
