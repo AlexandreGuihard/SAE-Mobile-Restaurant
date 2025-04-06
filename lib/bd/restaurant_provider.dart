@@ -43,6 +43,7 @@ class RestaurantProvider extends ChangeNotifier{
     await db.insert(
         "prefererrestaurant",
         {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant});
+  }
 
   void updateRestaurantSupabase(Restaurant restaurant) async {
     await supabase.from("restaurant").update(restaurant.toMap()).eq("idrestaurant", restaurant.id);
