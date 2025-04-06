@@ -4,27 +4,46 @@ import '../model/emplacement.dart';
 
 class EmplacementProvider extends ChangeNotifier{
   final db;
+  final supabase;
 
-  EmplacementProvider({required this.db});
+  EmplacementProvider({required this.db, required this.supabase});
+  EmplacementProvider.supabaseOnly({required this.supabase}) : db = null;
 
-  void insertEmplacement(Emplacement emplacement) async{
-    await db.insert("EMPLACEMENT", emplacement.toMap());
+  void insertEmplacementSupabase(Emplacement emplacement) async{
+    await supabase.from("emplacement").insert(emplacement.toMap());
   }
 
   Future<Emplacement> getEmplacementFromCommune(String commune) async{
-    return await db.query("EMPLACEMENT", where:"commune=$commune");
+    final Map<String, dynamic> map = await db.query("emplacement", where:"commune=$commune");
+
+    return Emplacement.fromMap(map);
+  }
+
+  Future<Emplacement> getEmplacementFromCommuneSupabase(String commune) async{
+    final Map<String, dynamic> map=await supabase.from("emplacement").select().eq("commune", commune).single();
+    return Emplacement.fromMap(map);
   }
 
   Future<List<Emplacement>> getEmplacements() async{
-    return await db.query("EMPLACEMENT");
+    final List<Map<String, dynamic>> maps = await db.query("emplacement");
+
+    return List.generate(maps.length, (i) {
+      return Emplacement.fromMap(maps[i]);
+    });
   }
 
-  void deleteEmplacement(String commune) async{
-    await db.delete("EMPLACEMENT", where:"commune=$commune");
+  Future<List<Emplacement>> getEmplacementsSupabase() async{
+    final List<Map<String, dynamic>> maps=await supabase.from("emplacement").select();
+    return List.generate(maps.length, (i){
+      return Emplacement.fromMap(maps[i]);
+    });
   }
 
-  void updateEmplacement(Emplacement emplacement) async{
-    String commune=emplacement.commune;
-    await db.update("EMPLACEMENT", emplacement.toMap(), where:"commune=$commune");
+  void deleteEmplacementSupabase(String commune) async{
+    await supabase.from("emplacement").delete().eq("commune", commune);
+  }
+
+  void updateEmplacementSupabase(Emplacement emplacement) async{
+    await supabase.from("emplacement").update(emplacement.toMap()).eq("commune", emplacement.commune);
   }
 }

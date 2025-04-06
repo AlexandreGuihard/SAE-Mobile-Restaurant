@@ -1,33 +1,83 @@
 import 'package:flutter/foundation.dart';
 import 'package:sae_mobile/model/restaurant.dart';
 
-class RestaurantProvider extends ChangeNotifier{
+class RestaurantProvider extends ChangeNotifier {
   final db;
+  final supabase;
 
-  RestaurantProvider({required this.db});
+  RestaurantProvider({required this.db, required this.supabase});
+  RestaurantProvider.supabaseOnly({required this.supabase}) : db = null;
 
-  // Selects
-  Future<List<Restaurant>> getRestaurants() async {
-    return await db.query('RESTAURANT');
+  Future<List<Restaurant>> getRestaurantsSupabase() async {
+    final List<dynamic> data = await supabase.from("restaurant").select();
+
+    return data.map<Restaurant>((item) {
+      final map = item as Map<String, dynamic>;
+      return Restaurant.fromMap(map);
+    }).toList();
   }
 
-  Future<Restaurant> getRestaurantFromId(int idRestaurant) async {
-    return await db.query('RESTAURANT', where: 'idRestaurant = $idRestaurant');
+  Future<Restaurant?> getRestaurantFromIdSupabase(int idRestaurant) async {
+    print("get favoris");
+    final List<dynamic> data = await supabase
+        .from("restaurant")
+        .select()
+        .eq("idrestaurant", idRestaurant);
+
+    if (data.isNotEmpty) {
+      final map = data.first as Map<String, dynamic>;
+      return Restaurant.fromMap(map);
+    } else {
+      return null;
+    }
   }
 
-  // Inserts
-  void insertRestaurant(Restaurant restaurant) async {
-    await db.insert("RESTAURANT", restaurant.toMap());
+  Future<List<Restaurant?>> getFavorisRestaurant(int idUtilisateur) async {
+    final List<Map<String, dynamic>> maps = await db.query(
+      'prefererrestaurant',
+      where: "idutilisateur= ?",
+      whereArgs: [idUtilisateur],
+    );
+
+    return Future.wait(
+      maps.map((map) async {
+        return await getRestaurantFromIdSupabase(map["idrestaurant"]);
+      }),
+    );
   }
 
-  // Update
-  void updateRestaurant(Restaurant restaurant) async {
-    int idRestaurant=restaurant.id;
-    await db.update("RESTAURANT", restaurant.toMap(), where: 'idRestaurant = $idRestaurant');
+  Future<void> insertRestaurantSupabase(Restaurant restaurant) async {
+    await supabase.from("restaurant").insert(restaurant.toMap());
   }
 
-  // Delete
-  void deleteRestaurant(int idRestaurant) async {
-    await db.delete("RESTAURANT", where: 'idRestaurant = $idRestaurant');
+  Future<void> ajouterFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    await db.insert(
+      "prefererrestaurant",
+      {"idutilisateur": idUtilisateur, "idrestaurant": idRestaurant},
+    );
+  }
+
+  Future<void> updateRestaurantSupabase(Restaurant restaurant) async {
+    await supabase
+        .from("restaurant")
+        .update(restaurant.toMap())
+        .eq("idrestaurant", restaurant.id);
+  }
+
+  Future<void> deleteRestaurantSupabase(int idRestaurant) async {
+    await supabase
+        .from("restaurant")
+        .delete()
+        .eq("idrestaurant", idRestaurant);
+  }
+
+  Future<void> supprimerFavorisRestaurant(int idUtilisateur, int idRestaurant) async {
+    print(idUtilisateur);
+    print(idRestaurant);
+    await db.delete(
+      "prefererrestaurant",
+      where: "idutilisateur= ? and idrestaurant= ?",
+      whereArgs: [idUtilisateur, idRestaurant],
+    );
   }
 }
