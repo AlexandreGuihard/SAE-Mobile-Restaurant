@@ -7,8 +7,8 @@ class TablesBd{
     db.execute("create table appartenir(idrestaurant int, idcuisine int, primary key(idrestaurant, idcuisine), foreign key (idrestaurant) references restaurant (idrestaurant), foreign key (idcuisine) references cuisine (idcuisine))");
     db.execute("create table utilisateur (idutilisateur int primary key, pseudo varchar(24), motdepasse varchar(24), moderateur boolean default false)");
     db.execute("create table donner(idutilisateur int, dateavis date, idrestaurant int, avis varchar(100), note int, primary key(idutilisateur, dateavis, idrestaurant), foreign key (idutilisateur) references utilisateur (idutilisateur), foreign key (idrestaurant) references restaurant (idrestaurant))");
-    db.execute("create table prefererrestaurant(idutilisateur int, idrestaurant int, primary key(idutilisateur, idrestaurant))");
-    db.execute("create table preferercuisine(idutilisateur int, idcuisine int, primary key(idutilisateur, idcuisine))");
+    db.execute("create table if not exists prefererrestaurant(idutilisateur int, idrestaurant int, primary key(idutilisateur, idrestaurant))");
+    db.execute("create table if not exists preferercuisine(idutilisateur int, idcuisine int, primary key(idutilisateur, idcuisine))");
     print("Tables créees");
   }
 }

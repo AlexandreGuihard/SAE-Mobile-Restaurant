@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sae_mobile/UI/cuisines.dart';
 import 'package:sae_mobile/UI/home.dart';
 
 class AppNavigation extends StatefulWidget {
@@ -39,31 +40,11 @@ class _BottomNavBarState extends State<AppNavigation> {
       ),
       body:
       <Widget>[
-        /// Home page
+        /// Restaurants page
         RestaurantsPage(),
 
-        /// Notifications page
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 1'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.notifications_sharp),
-                  title: Text('Notification 2'),
-                  subtitle: Text('This is a notification'),
-                ),
-              ),
-            ],
-          ),
-        ),
+        /// Cuisines page
+        CuisinePage(),
 
         /// Messages page
         ListView.builder(
