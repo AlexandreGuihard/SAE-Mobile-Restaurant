@@ -42,7 +42,7 @@ class _CuisinePageState extends State<CuisinePage> {
                   future: Provider.of<CuisineProvider>(context, listen: false).getFavorisCuisine(Provider.of<UtilisateurProvider>(context, listen: false).utilisateur!.idUtilisateur),
                   builder: (context, favSnapshot) {
                     if (favSnapshot.connectionState == ConnectionState.waiting) {
-                      return ListTile(title: Text('Chargement...'));
+                      return CircularProgressIndicator();
                     }
 
                     bool isFavori = favSnapshot.data?.contains(lesCuisines[index]) ?? false;
