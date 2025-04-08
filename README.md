@@ -1,5 +1,15 @@
 # SAE-Mobile-Restaurant
 
+## Membres
+
+Alexandre Guihard
+
+Antoine Delahaye
+
+Romain Voivenel
+
+Amin El Mellouki
+
 ## Installation et lancement
 Avant de commencer, assurez-vous que flutter et dart sont disponible sur votre ordinateur
 
